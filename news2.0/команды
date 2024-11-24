@@ -1,0 +1,32 @@
+from django.contrib.auth.models import User  
+
+user1 = User.objects.create_user('user1', password='password1')  
+user2 = User.objects.create_user('user2', password='password2')
+
+from yourapp.models import Author  
+
+author1 = Author.objects.create(user=user1)  
+author2 = Author.objects.create(user=user2)
+
+from yourapp.models import Category  
+
+category1 = Category.objects.create(name='Спорт')  
+category2 = Category.objects.create(name='Политика')  
+category3 = Category.objects.create(name='Образование')  
+category4 = Category.objects.create(name='Технологии')
+
+from yourapp.models import Post  
+
+post1 = Post.objects.create(author=author1, post_type=Post.ARTICLE, title='Статья о спорте', text='Текст статьи о спорте')  
+post2 = Post.objects.create(author=author2, post_type=Post.NEWS, title='Новости политики', text='Текст новостей политики')  
+post3 = Post.objects.create(author=author1, post_type=Post.ARTICLE, title='Образовательная статья', text='Текст образовательной статьи')
+
+post1.categories.add(category1, category3)  # Статья о спорте  
+post2.categories.add(category2)              # Новости политики  
+post3.categories.add(category3, category4)  # Образовательная статья с двумя категориями
+
+from yourapp.models import Comment  
+
+comment1 = Comment.objects.create(post=post1, user=user1, text='Отличная статья!')  
+comment2 = Comment.objects.create(post=post2, user=user2, text='Очень информативно.')  
+comment3 = Comment.objects.create(post=post1, user=user2, text='Спортивные новости всегда интересны.')

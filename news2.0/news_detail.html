@@ -1,0 +1,7 @@
+{% extends 'default.html' %}  
+
+{% block content %}  
+    <h2>{{ news_detail.title|censor }}</h2>  
+    <p>{{ news_detail.text }}</p>  
+    <p>Дата публикации: {{ formatted_date }}</p>  
+{% endblock %}
